@@ -44,7 +44,38 @@ pipeline{
             
             }
         }   
-    }   
+    } 
+
+
+
+    def imageName = 'sachinfrog05.jfrog.io/ui/native/docker-trial/ttrend'
+   def version   = '2.1.4'
+    stage(" Docker Build ") {
+      steps {
+        script {
+           echo '<--------------- Docker Build Started --------------->'
+           app = docker.build(imageName+":"+version)
+           echo '<--------------- Docker Build Ends --------------->'
+        }
+      }
+    }
+
+            stage (" Docker Publish "){
+        steps {
+            script {
+               echo '<--------------- Docker Publish Started --------------->'  
+                docker.withRegistry(registry, 'jfrog-creds'){
+                    app.push()
+                }    
+               echo '<--------------- Docker Publish Ended --------------->'  
+            }
+        }
+    }
+
+
+
+
+
     }
 
 }
