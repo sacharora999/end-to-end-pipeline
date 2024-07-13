@@ -1,4 +1,6 @@
 def registry = 'https://sachinfrog05.jfrog.io'
+def imageName = 'sachinfrog05.jfrog.io/ui/native/docker-trial/ttrend'
+def version   = '2.1.4'
 pipeline{
     
     agent {
@@ -48,8 +50,7 @@ pipeline{
 
 
 
-    def imageName = 'sachinfrog05.jfrog.io/ui/native/docker-trial/ttrend'
-   def version   = '2.1.4'
+   
     stage(" Docker Build ") {
       steps {
         script {
