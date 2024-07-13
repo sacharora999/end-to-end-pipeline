@@ -5,11 +5,14 @@ pipeline{
             label 'maven'
         }
     } 
-        stages{
-            stage("Clone Code"){
-                steps{
-                    git branch: 'main', url: 'https://github.com/sacharora999/end-to-end-pipeline.git'
-                }
+    environment {
+    PATH = "/opt/apache-maven-3.9.8/bin:$PATH"
+    }
+        stage("build"){
+            steps {
+                 echo "----------- build started ----------"
+                sh 'mvn clean deploy -Dmaven.test.skip=true'
+                 echo "----------- build complted ----------"
             }
         }
 }
